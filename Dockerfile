@@ -40,6 +40,10 @@ RUN echo "net.ipv4.tcp_fin_timeout = 30" >> /etc/sysctl.conf
 RUN echo "net.ipv4.tcp_keepalive_time = 1200" >> /etc/sysctl.conf
 RUN echo "net.ipv4.tcp_max_syn_backlog = 8192" >> /etc/sysctl.conf
 RUN echo "net.ipv4.tcp_max_tw_buckets = 5000" >> /etc/sysctl.conf
+
+RUN echo "* soft nofile 51200" >> /etc/security/limits.conf
+RUN echo "* hard nofile 51200" >> /etc/security/limits.conf
+RUN ulimit -n 51200
 RUN sysctl -p
 RUN /etc/init.d/pptpd restart
 
