@@ -25,21 +25,27 @@ RUN echo "net.ipv6.conf.all.forwarding=1" >> /etc/sysctl.conf
 RUN echo "net.core.rmem_max = 67108864" >> /etc/sysctl.conf
 RUN echo "net.core.wmem_max = 67108864" >> /etc/sysctl.conf
 RUN echo "net.ipv4.tcp_rmem = 4096 87380 67108864" >> /etc/sysctl.conf
+RUN echo "net.ipv4.tcp_wmem = 4096 65536 67108864" >> /etc/sysctl.conf
+RUN echo "net.core.netdev_max_backlog = 250000" >> /etc/sysctl.conf
+RUN echo "net.ipv4.tcp_mtu_probing = 1" >> /etc/sysctl.conf
+RUN echo "net.ipv4.tcp_congestion_control = hybla" >> /etc/sysctl.conf
+RUN echo "net.ipv4.tcp_syncookies = 1" >> /etc/sysctl.conf
+RUN echo "net.ipv4.tcp_tw_reuse = 1" >> /etc/sysctl.conf
+RUN echo "net.ipv4.tcp_tw_recycle = 0" >> /etc/sysctl.conf
+RUN echo "net.ipv4.tcp_fin_timeout = 30" >> /etc/sysctl.conf
+RUN echo "net.ipv4.tcp_keepalive_time = 1200" >> /etc/sysctl.conf
+RUN echo "net.ipv4.tcp_max_syn_backlog = 8192" >> /etc/sysctl.conf
 RUN echo "net.ipv4.ip_forward=1" >> /etc/sysctl.conf
-RUN echo "net.ipv4.ip_forward=1" >> /etc/sysctl.conf
-RUN echo "net.ipv4.ip_forward=1" >> /etc/sysctl.conf
-RUN echo "net.ipv4.ip_forward=1" >> /etc/sysctl.conf
-RUN echo "net.ipv4.ip_forward=1" >> /etc/sysctl.conf
-RUN echo "net.ipv4.ip_forward=1" >> /etc/sysctl.conf
-RUN echo "net.ipv4.ip_forward=1" >> /etc/sysctl.conf
-
-
 RUN sysctl -p
 RUN /etc/init.d/pptpd restart
 
 #set iptables forwording rules
 RUN sed -i '1s/^/iptables -t nat -A POSTROUTING -o eth0 -j MASQUERADE/' /etc/rc.local
 RUN apt-get update && apt-get install -y openssh-server
+RUN apt-get install python-setuptools && easy_install pip
+RUN apt-get install m2crypto gitLoaded plugins: fastestmirror
+RUN pip install shadowsocks
+
 RUN mkdir /var/run/sshd
 RUN echo 'root:password!' | chpasswd
 RUN sed -i 's/PermitRootLogin without-password/PermitRootLogin yes/' /etc/ssh/sshd_config
