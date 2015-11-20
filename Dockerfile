@@ -17,6 +17,7 @@ RUN echo "ms-dns 8.8.8.8" >> /etc/ppp/pptpd-options
 RUN echo "ms-dns 8.8.4.4" >> /etc/ppp/pptpd-options
 
 #config IPV4 forwarding
+RUN echo "fs.file-max = 51200" >> /etc/sysctl.conf
 RUN echo "net.ipv4.ip_forward=1" >> /etc/sysctl.conf
 RUN echo "net.ipv4.conf.default.rp_filter=1" >> /etc/sysctl.conf
 RUN echo "net.ipv4.conf.all.rp_filter=1" >> /etc/sysctl.conf
@@ -26,6 +27,9 @@ RUN echo "net.core.rmem_max = 67108864" >> /etc/sysctl.conf
 RUN echo "net.core.wmem_max = 67108864" >> /etc/sysctl.conf
 RUN echo "net.ipv4.tcp_rmem = 4096 87380 67108864" >> /etc/sysctl.conf
 RUN echo "net.ipv4.tcp_wmem = 4096 65536 67108864" >> /etc/sysctl.conf
+RUN echo "net.ipv4.tcp_mem = 25600 51200 102400" >> /etc/sysctl.conf
+RUN echo "net.core.somaxconn = 4096" >> /etc/sysctl.conf
+RUN echo "net.ipv4.tcp_fastopen = 3" >> /etc/sysctl.conf
 RUN echo "net.core.netdev_max_backlog = 250000" >> /etc/sysctl.conf
 RUN echo "net.ipv4.tcp_mtu_probing = 1" >> /etc/sysctl.conf
 RUN echo "net.ipv4.tcp_congestion_control = hybla" >> /etc/sysctl.conf
@@ -35,7 +39,7 @@ RUN echo "net.ipv4.tcp_tw_recycle = 0" >> /etc/sysctl.conf
 RUN echo "net.ipv4.tcp_fin_timeout = 30" >> /etc/sysctl.conf
 RUN echo "net.ipv4.tcp_keepalive_time = 1200" >> /etc/sysctl.conf
 RUN echo "net.ipv4.tcp_max_syn_backlog = 8192" >> /etc/sysctl.conf
-RUN echo "net.ipv4.ip_forward=1" >> /etc/sysctl.conf
+RUN echo "net.ipv4.tcp_max_tw_buckets = 5000" >> /etc/sysctl.conf
 RUN sysctl -p
 RUN /etc/init.d/pptpd restart
 
