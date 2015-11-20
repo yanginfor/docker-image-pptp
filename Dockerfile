@@ -18,6 +18,20 @@ RUN echo "ms-dns 8.8.4.4" >> /etc/ppp/pptpd-options
 
 #config IPV4 forwarding
 RUN echo "net.ipv4.ip_forward=1" >> /etc/sysctl.conf
+RUN echo "net.ipv4.conf.default.rp_filter=1" >> /etc/sysctl.conf
+RUN echo "net.ipv4.conf.all.rp_filter=1" >> /etc/sysctl.conf
+RUN echo "net.ipv4.tcp_syncookies=1" >> /etc/sysctl.conf
+RUN echo "net.ipv6.conf.all.forwarding=1" >> /etc/sysctl.conf
+RUN echo "net.core.rmem_max = 67108864" >> /etc/sysctl.conf
+RUN echo "net.core.wmem_max = 67108864" >> /etc/sysctl.conf
+RUN echo "net.ipv4.tcp_rmem = 4096 87380 67108864" >> /etc/sysctl.conf
+RUN echo "net.ipv4.ip_forward=1" >> /etc/sysctl.conf
+RUN echo "net.ipv4.ip_forward=1" >> /etc/sysctl.conf
+RUN echo "net.ipv4.ip_forward=1" >> /etc/sysctl.conf
+RUN echo "net.ipv4.ip_forward=1" >> /etc/sysctl.conf
+RUN echo "net.ipv4.ip_forward=1" >> /etc/sysctl.conf
+RUN echo "net.ipv4.ip_forward=1" >> /etc/sysctl.conf
+RUN echo "net.ipv4.ip_forward=1" >> /etc/sysctl.conf
 
 
 RUN sysctl -p
