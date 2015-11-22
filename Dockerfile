@@ -23,10 +23,6 @@ RUN echo "net.ipv4.conf.default.rp_filter=1" >> /etc/sysctl.conf
 RUN echo "net.ipv4.conf.all.rp_filter=1" >> /etc/sysctl.conf
 RUN echo "net.ipv6.conf.all.forwarding=1" >> /etc/sysctl.conf
 RUN echo "net.core.somaxconn = 4096" >> /etc/sysctl.conf
-RUN echo "net.ipv4.tcp_fastopen = 3" >> /etc/sysctl.conf
-RUN echo "net.core.netdev_max_backlog = 250000" >> /etc/sysctl.conf
-RUN echo "net.ipv4.tcp_mtu_probing = 1" >> /etc/sysctl.conf
-RUN echo "net.ipv4.tcp_congestion_control = hybla" >> /etc/sysctl.conf
 RUN echo "* soft nofile 51200" >> /etc/security/limits.conf
 RUN echo "* hard nofile 51200" >> /etc/security/limits.conf
 RUN ulimit -n 51200
