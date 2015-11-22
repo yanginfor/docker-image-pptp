@@ -17,15 +17,11 @@ RUN echo "ms-dns 8.8.8.8" >> /etc/ppp/pptpd-options
 RUN echo "ms-dns 8.8.4.4" >> /etc/ppp/pptpd-options
 
 #config IPV4 forwarding
-RUN echo "fs.file-max = 51200" >> /etc/sysctl.conf
 RUN echo "net.ipv4.ip_forward=1" >> /etc/sysctl.conf
 RUN echo "net.ipv4.conf.default.rp_filter=1" >> /etc/sysctl.conf
 RUN echo "net.ipv4.conf.all.rp_filter=1" >> /etc/sysctl.conf
 RUN echo "net.ipv6.conf.all.forwarding=1" >> /etc/sysctl.conf
-RUN echo "net.core.somaxconn = 4096" >> /etc/sysctl.conf
-RUN echo "* soft nofile 51200" >> /etc/security/limits.conf
-RUN echo "* hard nofile 51200" >> /etc/security/limits.conf
-RUN ulimit -n 51200
+
 RUN sysctl -p
 RUN /etc/init.d/pptpd restart
 
