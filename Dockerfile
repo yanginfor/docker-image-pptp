@@ -27,10 +27,6 @@ RUN /etc/init.d/pptpd restart
 
 #set iptables forwording rules
 RUN sed -i '1s/^/iptables -t nat -A POSTROUTING -o eth0 -j MASQUERADE/' /etc/rc.local
-RUN apt-get update && apt-get install -y openssh-server
-RUN apt-get install python-setuptools && easy_install pip
-RUN apt-get install m2crypto gitLoaded plugins: fastestmirror
-RUN pip install shadowsocks
 
 RUN mkdir /var/run/sshd
 RUN echo 'root:password!' | chpasswd
